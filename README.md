@@ -1,4 +1,5 @@
 used stored procedures:
+
 CREATE PROCEDURE [dbo].[GetHighestEarnerPerJobLevel]
 AS
 SELECT *
