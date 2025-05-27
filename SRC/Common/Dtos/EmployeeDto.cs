@@ -2,11 +2,12 @@
 {
     public class EmployeeDto
     {
-        public int EmployeeId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Earnings { get; set; }
-        public string JobLevel { get; set; }
-        public string Address { get; set; }
+        public int Id { get; set; }
+        public int Lp { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
+        public decimal Zarobki { get; set; }
+        public string PoziomStanowiska { get; set; }
+        public string MiejsceZamieszkania { get; set; }
     }
 }

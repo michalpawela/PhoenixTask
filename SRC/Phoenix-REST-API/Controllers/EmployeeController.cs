@@ -1,9 +1,9 @@
 using Common.Dtos;
-using BoardGame_REST_API.Services.Interfaces;
+using Phoenix_REST_API.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoardGame_REST_API.Controllers
+namespace Phoenix_REST_API.Controllers
 {
     [Route("employee")]
     [ApiController]
@@ -98,6 +98,31 @@ namespace BoardGame_REST_API.Controllers
             }
 
             return Ok(employee);
+        }
+
+        [HttpGet("highest-earner-per-joblevel")]
+        public async Task<IActionResult> GetHighestEarnerPerJobLevel()
+                => Ok(await _employeeService.GetHighestEarnerPerJobLevelAsync());
+
+        [HttpGet("lowest-earner-per-city-after-tax")]
+        public async Task<IActionResult> GetLowestEarnerPerCityAfterTax()
+            => Ok(await _employeeService.GetLowestEarnerPerCityAfterTaxAsync());
+
+        [HttpPost("parse-csv")]
+        public async Task<ActionResult<IEnumerable<EmployeeDto>>> ParseCsv([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("CSV file is required.");
+
+            try
+            {
+                var employees = await _employeeService.ParseCsvAsync(file);
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

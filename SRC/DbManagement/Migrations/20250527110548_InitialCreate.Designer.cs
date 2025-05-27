@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbManagement.Migrations
 {
     [DbContext(typeof(PhoenixDbContext))]
-    [Migration("20250520214221_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250527110548_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,28 +26,31 @@ namespace DbManagement.Migrations
 
             modelBuilder.Entity("DbManagement.Entities.Employee", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Imie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Earnings")
+                    b.Property<int>("Lp")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MiejsceZamieszkania")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Nazwisko")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JobLevel")
+                    b.Property<string>("PoziomStanowiska")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Zarobki")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("EmployeeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Employees");
                 });

@@ -1,7 +1,7 @@
-using BoardGame_REST_API;
+using Phoenix_REST_API;
 using DbManagement;
-using BoardGame_REST_API.Services;
-using BoardGame_REST_API.Services.Interfaces;
+using Phoenix_REST_API.Services;
+using Phoenix_REST_API.Services.Interfaces;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using AutoMapper;
@@ -12,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 
+// In Program.cs or Startup.cs
+builder.Services.AddDbContext<PhoenixDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();

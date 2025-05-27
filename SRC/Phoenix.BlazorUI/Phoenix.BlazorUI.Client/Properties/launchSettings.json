@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Phoenix.BlazorUI.Client": {
+      "commandName": "Project",
+      "launchBrowser": true
+    }
+  }
+}

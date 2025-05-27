@@ -1,0 +1,43 @@
+﻿@page "/employee"
+@inject HttpClient Http
+
+<input type="file" @onchange="HandleFileSelected" />
+@if (employees != null)
+{
+    <ul>
+        @foreach (var emp in employees)
+        {
+            <li>@emp.Imie @emp.Nazwisko - @emp.Zarobki</li>
+        }
+    </ul>
+}
+
+@code {
+    private List<EmployeeDto>? employees;
+
+    private async Task HandleFileSelected(ChangeEventArgs e)
+    {
+        var file = ((IBrowserFile)e.Value).OpenReadStream();
+        var browserFile = (IBrowserFile)e.Value;
+
+        var content = new MultipartFormDataContent();
+        content.Add(new StreamContent(browserFile.OpenReadStream(10_000_000)), "csvFile", browserFile.Name);
+
+        var response = await Http.PostAsync("api/employee/parse-csv", content);
+        if (response.IsSuccessStatusCode)
+        {
+            var data = await response.Content.ReadFromJsonAsync<List<EmployeeDto>>();
+            employees = data!;
+        }
+    }
+
+    public class EmployeeDto
+    {
+        public int Lp { get; set; }
+        public string Imie { get; set; }
+        public string Nazwisko { get; set; }
+        public decimal Zarobki { get; set; }
+        public string PoziomStanowiska { get; set; }
+        public string MiejsceZamieszkania { get; set; }
+    }
+}

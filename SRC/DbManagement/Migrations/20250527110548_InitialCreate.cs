@@ -5,7 +5,7 @@
 namespace DbManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,17 +14,18 @@ namespace DbManagement.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Earnings = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JobLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Lp = table.Column<int>(type: "int", nullable: false),
+                    Imie = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nazwisko = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Zarobki = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PoziomStanowiska = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiejsceZamieszkania = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
         }
 
